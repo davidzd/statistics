@@ -13,11 +13,17 @@ td['weekend'] = dict()
 td['weekday'] = dict()
 user_list = []
 gap = 50
+f = open('statistics.txt', 'wb')
 
 for i in db:
     # print loading
     if count%10000 == 0:
-        print sum, td, fc
+        print sum
+        f.write(json.dumps(td))
+        f.write(json.dumps(td)+'\n')
+        f.write(str(sum)+'\n')
+        f.write(json.dumps(fc)+'\n')
+        f.write("*"*10 + "fenggexian" + "*"*10+'\n')
 
     # sentiment distribution.
     if 'sentiment' in db[i] and type(db[i]['sentiment']) == int:
@@ -51,9 +57,6 @@ for i in db:
             else:
                 fc['friend'][str((db[i]['user_friends_count']) / gap)] = 1
     count += 1
-f = open('statistics.txt', 'wb')
-f.write(json.dumps(td))
-f.write(str(sum))
-f.write(json.dumps(fc))
+
 f.close()
 print td, sum, fc
