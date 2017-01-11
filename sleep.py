@@ -8,6 +8,7 @@ class SleepEvent(Event):
         super(SleepEvent, self).__init__(timeout)
         self.timeout = timeout
         self.start_time = time()
+        print 'hah'
 
     def _is_ready(self):
         return time() - self.start_time >= self.timeout
